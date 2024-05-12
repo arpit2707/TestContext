@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import SellerForm from "./Components/SellerForm";
+import { Fragment, useState } from "react";
+import ReactDOM from "react-dom";
+import Modal from "./Components/Modal";
+import Cart from "./Components/Cart/Cart";
+import Cartcontext from "./store/Cartcontext";
+import Productcontext from "./store/Productcontext";
+import Products from "./Components/Products/Products";
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  console.log("RERENDER");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Productcontext>
+      <Cartcontext>
+        <Fragment>
+          <Modal isOpen={isModalOpen} onClose={closeModal} />
+          <div className="flex justify-between ">
+            <SellerForm />
+            <Cart />
+          </div>
+          <div>
+            <Products />
+          </div>
+        </Fragment>
+      </Cartcontext>
+    </Productcontext>
   );
 }
 
