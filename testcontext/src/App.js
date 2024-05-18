@@ -24,9 +24,13 @@ function App() {
       <Cartcontext>
         <Fragment>
           <Modal isOpen={isModalOpen} onClose={closeModal} />
-          <div className="flex justify-between ">
+          <div className="flex justify-between bg-slate-400  ">
             <SellerForm />
-            <Cart />
+            <Cart
+              onOpen={() => {
+                openModal();
+              }}
+            />
           </div>
           <div>
             <Products />

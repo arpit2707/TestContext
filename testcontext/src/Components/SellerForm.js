@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext, useState, useRef } from "react";
 import { Productctx } from "../store/Productcontext";
 
 const SellerForm = (props) => {
@@ -6,59 +6,69 @@ const SellerForm = (props) => {
   const [desc, setDesc] = useState("");
   const [price, setPrice] = useState(0);
   const produc = useContext(Productctx);
+  const nameRef = useRef("");
+  const descRef = useRef("");
+  const priceRef = useRef("");
   const { addproducts, products } = produc;
   return (
     <Fragment>
       <form
-        className=" bg-orange-300 text-black flex m-1"
+        className="  text-black flex m-1"
         onSubmit={(e) => {
           e.preventDefault();
+          nameRef.current.value = "";
+          descRef.current.value = "";
+          priceRef.current.value = "";
         }}
       >
         <div className="grid  m-4">
           <label className="m-2">Candy Name</label>
           <input
-            className="m-2"
+            className="m-1 border-2 rounded-xl"
             type="text"
             onChange={(e) => {
               setName(e.target.value);
             }}
+            ref={nameRef}
           />
         </div>
         <div className="grid m-4">
-          <label className="m-2">Description</label>
+          <label className="m-2 ">Description</label>
           <input
             type="text"
-            className="m-2"
+            className="m-1 border-2 rounded-xl"
             onChange={(e) => {
               setDesc(e.target.value);
             }}
+            ref={descRef}
           />
         </div>
         <div className="grid m-4">
           <label className="m-2">Price</label>
           <input
             type="text"
-            className="m-2"
+            className="m-1 border-2 rounded-xl"
             onChange={(e) => {
               setPrice(e.target.value);
             }}
+            ref={priceRef}
           />
         </div>
-        <button
-          className="bg-gray-700 m-3 text-white p-2"
-          onClick={() => {
-            debugger;
-            addproducts({
-              id: products.length + 1,
-              name: name,
-              description: desc,
-              price: price,
-            });
-          }}
-        >
-          Add
-        </button>
+        <div className="grid">
+          <button
+            className="bg-gray-700 mx-3 my-10 px-6  text-white justify-center border-2 rounded-xl"
+            onClick={() => {
+              addproducts({
+                id: products.length + 1,
+                name: name,
+                description: desc,
+                price: price,
+              });
+            }}
+          >
+            Add
+          </button>
+        </div>
       </form>
     </Fragment>
   );

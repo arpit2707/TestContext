@@ -3,9 +3,10 @@ import React, { createContext, useState, useRef, useCallback } from "react";
 export const Productctx = createContext();
 const Productcontext = ({ children }) => {
   const [products, setProducts] = useState([]);
-  const addproducts = useCallback((item) => {
+  const addproducts = (item) => {
     setProducts((prevState) => [...prevState, item]);
-  });
+    console.log(products, item);
+  };
 
   return (
     <Productctx.Provider value={{ addproducts, products }}>
@@ -13,4 +14,4 @@ const Productcontext = ({ children }) => {
     </Productctx.Provider>
   );
 };
-export default React.memo(Productcontext);
+export default Productcontext;
